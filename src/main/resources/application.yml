@@ -1,0 +1,5 @@
+server:
+  port: 8080
+ip-api:
+  url: http://ip-api.com
+

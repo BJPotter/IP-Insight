@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>IP定位查询</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to IP Locate Search!</h1>
+<p>Your IP: <span th:text="${ipInfo.query}"></span></p>
+<p>Your city: <span th:text="${ipInfo.city}"></span></p>
+<p>Your region: <span th:text="${ipInfo.regionName}"></span></p>
+<p>Your country: <span th:text="${ipInfo.country}"></span></p>
+<p>Your ISP: <span th:text="${ipInfo.isp}"></span></p>
+</body>
+</html>
