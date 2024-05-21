@@ -54,6 +54,20 @@
             <version>3.0.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.ip2location/ip2location-java -->
+        <dependency>
+            <groupId>com.ip2location</groupId>
+            <artifactId>ip2location-java</artifactId>
+            <version>8.11.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.maxmind.geoip2</groupId>
+            <artifactId>geoip2</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
