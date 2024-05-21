@@ -4,6 +4,8 @@
 
 IP Insight是一个基于SpringBoot简单的服务，它可以供你获取自身的IP地址信息及额外的位置和ISP信息。通过IP Insight，你可以方便的从任意设备查看当前的IP地址、城市、区域、国家和ISP。
 
+<img src="https://telegraph-image-2ni.pages.dev/file/80f0b6719b7f2e9c953f2.png" style="zoom:30%;" />
+
 ## 特性
 
 - 详细的IP信息：本服务将展示你当前的IP、城市、区域、国家和ISP信息。
