@@ -2,12 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>IP定位查询</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Insight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #333;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -16,23 +20,167 @@
             margin: 0;
             padding: 0;
         }
+        .container-wrapper {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 1200px;
+        }
+        .container1, .container2 {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            width: 48%;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
         h1 {
             font-size: 2.5em;
-            margin-bottom: 0.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
         }
-        p {
+        .description {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        .block {
+            width: 100%;
+            margin: 10px;
+        }
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .info-row {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        .info-row:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        .icon {
             font-size: 1.2em;
+            width: 25px;
+            text-align: center;
+        }
+        .info-label {
+            font-weight: bold;
+            margin-left: 5px;
+            width: 80px;
+            font-size: 0.9em;
+        }
+        .info-value {
+            font-size: 0.9em;
+            flex-grow: 1;
+            word-break: break-all;
         }
     </style>
 </head>
 <body>
-<h1>Welcome to IP Insight Search!</h1>
-<p>Your IP: <span th:text="${ipInfo.query}"></span></p>
-<p>Your country: <span th:text="${ipInfo.country}"></span></p>
-<p>Your city: <span th:text="${ipInfo.city}"></span></p>
-<p>Your region: <span th:text="${ipInfo.regionName}"></span></p>
-<p>Your ISP: <span th:text="${ipInfo.isp}"></span></p>
-<p>Your lat: <span th:text="${ipInfo.lat}"></span></p>
-<p>Your lon: <span th:text="${ipInfo.lon}"></span></p>
+    <h1>IP Insight Search</h1>
+    <div class="container-wrapper">
+        <div class="container1">
+            <div class="block">
+                <p class="description">Discover your IP address and location details by online</p>
+                <div class="info-container">
+                    <div class="info-row">
+                        <i class="fas fa-globe icon"></i>
+                        <span class="info-label">IP:</span>
+                        <span class="info-value" th:text="${ipInfo.query}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-flag icon"></i>
+                        <span class="info-label">Country:</span>
+                        <span class="info-value" th:text="${ipInfo.country}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-city icon"></i>
+                        <span class="info-label">City:</span>
+                        <span class="info-value" th:text="${ipInfo.city}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-map-marker-alt icon"></i>
+                        <span class="info-label">Region:</span>
+                        <span class="info-value" th:text="${ipInfo.regionName}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-wifi icon"></i>
+                        <span class="info-label">ISP:</span>
+                        <span class="info-value" th:text="${ipInfo.isp}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-location-arrow icon"></i>
+                        <span class="info-label">Lat:</span>
+                        <span class="info-value" th:text="${ipInfo.lat}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-location-arrow icon"></i>
+                        <span class="info-label">Lon:</span>
+                        <span class="info-value" th:text="${ipInfo.lon}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container2">
+            <div class="block">
+                <p class="description">Discover your IP address and location details by local</p>
+                <div class="info-container">
+                    <div class="info-row">
+                        <i class="fas fa-globe icon"></i>
+                        <span class="info-label">IP:</span>
+                        <span class="info-value" th:text="${ipInfoLocal.query}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-flag icon"></i>
+                        <span class="info-label">Country:</span>
+                        <span class="info-value" th:text="${ipInfoLocal.country}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-city icon"></i>
+                        <span class="info-label">City:</span>
+                        <span class="info-value" th:text="${ipInfoLocal.city}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-map-marker-alt icon"></i>
+                        <span class="info-label">Region:</span>
+                        <span class="info-value" th:text="${ipInfoLocal.regionName}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-wifi icon"></i>
+                        <span class="info-label">ISP:</span>
+                        <span class="info-value" th:text="${ipInfoLocal.isp}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-location-arrow icon"></i>
+                        <span class="info-label">Lat:</span>
+                        <span class="info-value" th:text="${ipInfoLocal.lat}"></span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-location-arrow icon"></i>
+                        <span class="info-label">Lon:</span>
+                        <span class="info-value" th:text="${ipInfoLocal.lon}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+

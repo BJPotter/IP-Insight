@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -26,10 +25,12 @@ public class IpInfoController {
     private IpInfoService ipInfoService;
 
     @GetMapping("/info")
-    public String getIpInfo(Model model, HttpServletRequest request) {
+    public String getIpInfo(Model model, HttpServletRequest request) throws IOException, GeoIp2Exception {
         String ip = getClientIp(request);
         IpInfo ipInfo = ipInfoService.getIpInfo(ip);
+        IpInfo ipInfoLocal = getIpInfoLocal(ip);
         model.addAttribute("ipInfo", ipInfo);
+        model.addAttribute("ipInfoLocal", ipInfoLocal);
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
@@ -50,15 +51,15 @@ public class IpInfoController {
         return ip;
     }
 
-    @GetMapping("/iptest/{ip}")
-    public String getIP(@PathVariable("ip") String ip) throws IOException, GeoIp2Exception {
+
+    public IpInfo getIpInfoLocal(String ip) throws IOException, GeoIp2Exception {
         IpInfo ipInfo = new IpInfo();
-        File asnDatabase = new File("D:\\Desktop\\IPDATA\\GeoLite2-ASN_20240517\\GeoLite2-ASN.mmdb");
-        File cityDatabase = new File("D:\\Desktop\\IPDATA\\GeoLite2-City_20240517\\GeoLite2-City.mmdb");
+        ipInfo.setQuery(ip);
+        File asnDatabase = new File("/opt/soft/java/db/GeoLite2-ASN.mmdb");
+        File cityDatabase = new File("/opt/soft/java/db/GeoLite2-City.mmdb");
         DatabaseReader asnReader = new DatabaseReader.Builder(asnDatabase).build();
         DatabaseReader cityReader = new DatabaseReader.Builder(cityDatabase).build();
         InetAddress ipAddress = InetAddress.getByName(ip);
-
         AsnResponse asnResponse = asnReader.asn(ipAddress);
         CityResponse cityResponse = cityReader.city(ipAddress);
         Country country = cityResponse.getCountry();
@@ -76,7 +77,7 @@ public class IpInfoController {
         ipInfo.setLat(lat);
         Double lon = location.getLongitude(); // -93.2323
         ipInfo.setLon(lon);
-
-        return "";
+        return ipInfo;
     }
+
 }
