@@ -4,12 +4,21 @@ ip-api:
   url: http://ip-api.com
 spring:
   redis:
-    host: 127.0.0.1
+    host: 150.158.80.188
     port: 6379
     database: 0
 
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://150.158.80.188:3306/test
+    password: 123456
+    username: root
+
+
+
 jwt:
   secret: yourSecretKeyHere
+  expiration: 3600
 
 
 
