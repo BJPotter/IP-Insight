@@ -10,4 +10,5 @@ import com.example.mp.pojo.User;
  * Desc:
  */
 public interface UserService extends IService<User> {
+    void registerUser(User user);
 }

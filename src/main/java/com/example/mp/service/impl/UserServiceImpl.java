@@ -14,6 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,31 +25,20 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
     @Autowired
     private UserMapper userMapper;
-
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtUtils jwtUtils;
-
-    public User findByUsername(String username) {
-        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper();
-        LambdaQueryWrapper<User> eq = lambdaQueryWrapper
-                .eq(User::getUsername, username);
-        User user = userMapper.selectOne(eq);
-        return user;
-    }
-
-    public String login(User user) throws AuthenticationException {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-        final Authentication authentication = authenticationManager.authenticate(upToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-        return jwtUtils.generateToken(userDetails);
+    @Override
+    public void registerUser(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        // 将用户名和加密后的密码存储到数据库中
+        User passwdUser = new User();
+        passwdUser.setUsername(user.getUsername());
+        passwdUser.setPassword(encodedPassword);
+        userMapper.insert(passwdUser);
     }
 }

@@ -17,22 +17,6 @@ public class IpInfoController {
     private IpInfoService ipInfoService;
 
 
-//    @GetMapping("/info/{ip}")
-//    public String getIpInfo(@PathVariable("ip") String ip, Model model, HttpServletRequest request) throws IOException, GeoIp2Exception {
-//        //String ip = getClientIp(request);
-//        IpInfo ipInfo = ipInfoService.getIpInfoOnline(ip);
-//        IpInfo ipInfoLocal = ipInfoService.getIpInfoLocal(ip);
-//        model.addAttribute("ipInfo", ipInfo);
-//        model.addAttribute("ipInfoLocal", ipInfoLocal);
-//        Enumeration<String> headerNames = request.getHeaderNames();
-//        while (headerNames.hasMoreElements()) {
-//            String headerName = headerNames.nextElement();
-//            model.addAttribute(headerName, request.getHeader(headerName));
-//        }
-//
-//        return "index";
-//    }
-
     @GetMapping("/info")
     public String getIpInfo(Model model, HttpServletRequest request) throws IOException, GeoIp2Exception {
         String ip = getClientIp(request);
