@@ -5,6 +5,7 @@ import com.example.mp.pojo.User;
 import com.example.mp.service.UserService;
 import com.example.mp.service.impl.JwtUserDetailsService;
 import com.example.mp.util.JwtUtils;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +32,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 @Slf4j
+@Api(value = "login Controller", tags = {"login"})
 public class LoginController {
 
     @Autowired

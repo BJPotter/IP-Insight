@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/login", "/auth/register").permitAll() // 允许匿名访问登录和注册路径
+                .antMatchers("/auth/login", "/auth/register","/swagger-ui").permitAll() // 允许匿名访问登录和注册路径
                 .anyRequest().authenticated()
                 .and()
                 //注册过滤器

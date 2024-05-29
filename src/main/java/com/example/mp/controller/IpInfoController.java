@@ -3,6 +3,7 @@ package com.example.mp.controller;
 import com.example.mp.pojo.IpInfo;
 import com.example.mp.service.IpInfoService;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 @Controller
+@Api(value = "info Controller", tags = {"info"})
 public class IpInfoController {
     @Autowired
     private IpInfoService ipInfoService;

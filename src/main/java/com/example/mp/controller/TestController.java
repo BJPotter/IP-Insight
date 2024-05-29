@@ -1,5 +1,6 @@
 package com.example.mp.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Desc:
  */
 @RestController
+@Api(value = "test Controller", tags = {"test"})
 public class TestController {
     @RequestMapping("/test")
     public String test(){

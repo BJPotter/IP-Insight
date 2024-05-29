@@ -2,6 +2,7 @@ package com.example.mp.controller;
 
 import com.example.mp.pojo.User;
 import com.example.mp.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/auth")
+@Api(value = "register Controller", tags = {"register"})
 public class UserController {
     @Autowired
     private UserService userService;
