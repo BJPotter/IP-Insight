@@ -1,7 +1,12 @@
 package com.example.mp.controller;
 
+import com.example.mp.common.ApiResponse;
+import com.example.mp.util.ResponseUtil;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "test Controller", tags = {"test"})
 public class TestController {
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
+    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+
+    @GetMapping("/test")
+    @ApiOperation(value = "test Method", tags = {"方法测试"})
+    public ApiResponse<String> test(){
+        logger.info("Handling /test request");
+        return ResponseUtil.success("test");
     }
 }

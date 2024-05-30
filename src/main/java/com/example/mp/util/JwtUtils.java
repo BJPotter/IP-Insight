@@ -5,7 +5,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,8 +19,10 @@ import java.util.*;
  * Desc:
  */
 @Component
-@Slf4j
 public class JwtUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.expiration}")
@@ -47,16 +48,15 @@ public class JwtUtils {
     // 提取声明（claims）
     public Claims extractClaims(String token) {
         try {
-            log.info("Extracting claims from Token: {}", token); // 输出接收到的令牌
             return Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
         } catch (SignatureException e) {
-            log.error("Invalid JWT signature: {}", e.getMessage());
+            logger.error("Invalid JWT signature: {}", e.getMessage());
             return null;
         } catch (Exception e) {
-            log.error("Error extracting claims: {}", e.getMessage());
+            logger.error("Error extracting claims: {}", e.getMessage());
             return null;
         }
     }
@@ -71,7 +71,7 @@ public class JwtUtils {
         boolean isTokenExpired = claims.getExpiration().before(new Date());
         boolean isValid = username.equals(tokenUsername) && !isTokenExpired;
         if (!isValid) {
-            log.warn("Token validation failed. Username: {}, Token Username: {}, Is Token Expired: {}", username, tokenUsername, isTokenExpired);
+            logger.warn("Token validation failed. Username: {}, Token Username: {}, Is Token Expired: {}", username, tokenUsername, isTokenExpired);
         }
         return isValid;
     }

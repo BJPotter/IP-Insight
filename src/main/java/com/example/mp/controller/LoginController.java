@@ -1,10 +1,12 @@
 package com.example.mp.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.mp.common.ApiResponse;
 import com.example.mp.pojo.User;
 import com.example.mp.service.UserService;
 import com.example.mp.service.impl.JwtUserDetailsService;
 import com.example.mp.util.JwtUtils;
+import com.example.mp.util.ResponseUtil;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class LoginController {
 
     // 处理用户登录请求
     @PostMapping("/login")
-    public String createToken(@RequestBody User authRequest) throws Exception {
+    public ApiResponse<String> createToken(@RequestBody User authRequest) throws Exception {
         // 认证阶段
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -59,6 +61,7 @@ public class LoginController {
         }
         // 生成JWT令牌
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authRequest.getUsername());
-        return jwtUtils.generateToken(userDetails.getUsername());
+        String token = jwtUtils.generateToken(userDetails.getUsername());
+        return ResponseUtil.success(token);
     }
 }
