@@ -3,6 +3,8 @@ server:
 ip-api:
   url: http://ip-api.com
 spring:
+  main:
+    log-startup-info: false
   redis:
     host: 150.158.80.188
     port: 6379
